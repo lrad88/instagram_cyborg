@@ -18,6 +18,7 @@ from selenium.common.exceptions import (ElementNotInteractableException,
 
 sleep_time = random.uniform(5, 10)
 
+
 #chromeOptions = Options()
 #chromeOptions.headless = True
 
@@ -31,6 +32,17 @@ class InstaBot:
         # above saves a reference to the username in case it is needed in
         # other methods
         self.driver.get('https://instagram.com/')
+
+        sleep(sleep_time)
+
+        try:
+            button_element =self.driver.find_element(By.XPATH,"//button[text()='Allow all cookies']")
+            button_element.click()
+            print("1st element found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("1st element not found")
+            sleep(sleep_time)
 
         #    .click()
         sleep(sleep_time)
@@ -49,6 +61,15 @@ class InstaBot:
 
         #while looper != 5:
         #try:
+
+        try:
+            button_element =self.driver.find_element(By.XPATH,"//svg[@aria-label='New post']")
+            button_element.click()
+            print("1st element found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("1st element not found")
+            sleep(sleep_time)
 
         # Not Now 1
         try:
