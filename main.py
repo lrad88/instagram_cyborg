@@ -1,4 +1,4 @@
-# pip3 install selenium
+# pip3 install selenium yo
 # knowledge of XPATHs and finding class names in inspect element essential
 from selenium import webdriver
 from time import sleep
