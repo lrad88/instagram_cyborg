@@ -35,14 +35,18 @@ class InstaBot:
 
         sleep(sleep_time)
 
+# allow all cookies
+
         try:
             button_element =self.driver.find_element(By.XPATH,"//button[text()='Allow all cookies']")
             button_element.click()
-            print("1st element found")
+            print("Allow all cookies found")
             sleep(sleep_time)
         except ElementNotInteractableException:
-            print("1st element not found")
+            print("Allow all cookies not found")
             sleep(sleep_time)
+
+# login
 
         #    .click()
         sleep(sleep_time)
@@ -57,56 +61,39 @@ class InstaBot:
         # clicks the login button using xpath
         sleep(sleep_time)
 
-        #looper = 1
 
-        #while looper != 5:
-        #try:
-
-        try:
-            button_element =self.driver.find_element(By.XPATH,"//svg[@aria-label='New post']")
-            button_element.click()
-            print("1st element found")
-            sleep(sleep_time)
-        except ElementNotInteractableException:
-            print("1st element not found")
-            sleep(sleep_time)
-
-        # Not Now 1
+# save your log in info ? Not Now 1
         try:
             self.driver.find_element(By.CLASS_NAME, "_ac8f").click()
-            print("1st element found")
+            print("save your login info found")
             sleep(sleep_time)
         except ElementNotInteractableException:
-            print("1st element not found")
+            print("save your login info not found")
             sleep(sleep_time)
-        # Not Now 2
-        try:
 
-            self.driver.find_element(By.CLASS_NAME,
-                                     "_a9-- _ap36 _a9_1").click()
-            print("2nd element found")
-            sleep(sleep_time)
-        except NoSuchElementException:
-            print("2nd element not found")
-            sleep(sleep_time)
-        # Not Now 2 2nd attempt
+# turn on notifications ? not now
         try:
             self.driver.find_element(By.XPATH,
                                      "//*[contains(text(), 'Not Now')]").click()
-            print("2nd attempt succeeded")
+            print("Turn on notifications found")
             sleep(sleep_time)
         except ElementNotInteractableException:
-            print("2nd attempt failed")
+            print("Turn on notifications not found")
             sleep(sleep_time)
-        # New Post
-        #try:
-        #    self.driver.find_element(By.XPATH, "//aria-label='New post'").click()
-        #    print("3rd element found")
-        #    sleep(1000)
-        #except NoSuchElementException:
-        #    print("3rd element not found")
-        #    sleep(1000)
-        # New Post 2nd attempt (static dropdown menu maybe ?)
+
+# open new post tab
+
+
+        try:
+            button_element = self.driver.find_element(By.CSS_SELECTOR,"[aria-label='New post']")
+            button_element.click()
+            print("open new post tab found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("open new post tab not found")
+            sleep(sleep_time)
+
+
         try:
             self.driver.find_element(By.XPATH,
                                      "//*[contains(text(), '#')]").click()
