@@ -1,32 +1,24 @@
 # pip3 install selenium
 # knowledge of XPATHs and finding class names in inspect element essential
+
 from selenium import webdriver
 from time import sleep
+
 from secrets import details
 import random
 
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (ElementNotInteractableException,
                                         NoSuchElementException)
+from selenium.webdriver.common.keys import Keys
 
-#chrome_extension_file = File.join(File.dirname(__FILE__), "..",
-#        "extension", "testwise-recorder-0.5.2.crx")
+import pyautogui
 
-#from selenium.webdriver.chrome.service import Service
-# selenium web driver allows you to control the browser through txt
-# cues
-
-sleep_time = random.uniform(5, 10)
-
-
-#chromeOptions = Options()
-#chromeOptions.headless = True
-
-#driver = webdriver.Chrome()  #options=chromeOptions)
+sleep_time = random.uniform(2, 3)
 
 
 class InstaBot:
-    def __init__(self, username, password):
+    def __init__(self, username, password, path, caption):
         self.driver = webdriver.Chrome()
         self.username = username
         # above saves a reference to the username in case it is needed in
@@ -59,10 +51,10 @@ class InstaBot:
         self.driver.find_element(By.XPATH, "//button[@type=\"submit\"]") \
             .click()
         # clicks the login button using xpath
-        sleep(sleep_time)
+        sleep(10)
 
 
-# save your log in info ? Not Now 1
+# save your log in info ? Not Now
         try:
             self.driver.find_element(By.CLASS_NAME, "_ac8f").click()
             print("save your login info found")
@@ -93,29 +85,103 @@ class InstaBot:
             print("open new post tab not found")
             sleep(sleep_time)
 
+# open post selector box
+
+        try:
+            button_element = self.driver.find_element(By.CSS_SELECTOR,"[aria-label='Post']")
+            button_element.click()
+            print("post selector box found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("post selector box not found")
+            sleep(sleep_time)
+
+# open file
+
+        try:
+            button_element =self.driver.find_element(By.XPATH,"//button[text()='Select From Computer']")
+            button_element.click()
+            print("File select box found")
+            sleep(sleep_time)
+
+            pyautogui.press("/")
+            pyautogui.typewrite(path)
+
+            sleep(sleep_time)
+
+            pyautogui.press("enter")
+
+            sleep(sleep_time)
+
+            pyautogui.press("enter")
+
+            print("File selected")
+            sleep(20)
+        except ElementNotInteractableException:
+            print("File select box not found")
+            sleep(sleep_time)
+
+# video posts are now shared as reels
+
+        try:
+            button_element =self.driver.find_element(By.XPATH,"//button[text()='OK']")
+            button_element.click()
+            print("Shared as reels button found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("Shared as reels button not found")
+            sleep(sleep_time)
+
+# cropping settings
+
+        try:
+            self.driver.find_element(By.XPATH, "//div[contains(@class,'_ac7b _ac7d')]").click()
+            print("cropping settings click through found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("cropping settings click through not found")
+            sleep(sleep_time)
+
+# editing settings
+
+        try:
+            self.driver.find_element(By.XPATH, "//div[contains(@class,'_ac7b _ac7d')]").click()
+            print("editing settings click through found")
+            sleep(sleep_time)
+        except ElementNotInteractableException:
+            print("editing settings click through not found")
+            sleep(sleep_time)
+
+# write a caption
+
+        try:
+            button_element = self.driver.find_element(By.CSS_SELECTOR,"[aria-label='Write a caption...']")
+            button_element.click()
+            print("Write a caption box found")
+
+            pyautogui.typewrite(caption)
+
+            sleep(1000)
+
+        except ElementNotInteractableException:
+            print("Write a caption box not found")
+            sleep(sleep_time)
+
+# share
 
         try:
             self.driver.find_element(By.XPATH,
-                                     "//*[contains(text(), '#')]").click()
-            print("2nd attempt succeeded")
-            sleep(1000)
+                                     "//div[contains(@class,'_ac7b _ac7d')]").click()
+            print("post successfully shared!")
+            sleep(30)
         except ElementNotInteractableException:
-            print("2nd attempt failed")
-            sleep(1000)
-
-            # Check if the element is visible
-            #if element.is_displayed():
-            #    looper = 0
-            #    print("Element is visible on the page")
-            #element = self.driver.find_element(By.XPATH, "//*[contains(text(), 'now')]")
-            # above xpath checks all text "*" containing "now"
-
-            #else:
-            #    print("Element is not visible on the page")
-            #    looper = 1
-            #    try:
-            #        self.driver.find_element(By.CLASS_NAME,"_ac8f").click()
-            #        if element.is_not("_ac8f"):
+            print("Share button not found")
+            sleep(sleep_time)
 
 
-tha_bot = InstaBot(details()[0], details()[1])
+
+
+
+
+
+tha_bot = InstaBot(details()[0], details()[1], details()[2], details()[3])
